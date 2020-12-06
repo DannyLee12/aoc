@@ -4,8 +4,7 @@ def solve_a(l: list) -> int:
     for group in l:
         questions = set()
         for person in group.split("\n"):
-            for question in person:
-                questions.add(question)
+            questions = questions.union(set(person))
         total += len(questions)
 
     return total
