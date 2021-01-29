@@ -16,7 +16,7 @@ def solve(tiles: list):
         d[no] = (top, bottom, left, right)
 
     total = 1
-
+    corners = [""] * 4  # top-left, top-right, bottom-left, bottom-right
     for i, (k, v) in enumerate(d.items()):
         l = v
         counter = 0
@@ -30,10 +30,18 @@ def solve(tiles: list):
                     seen[a] = True
 
         if counter == 2:
-            # total *= int(k.split()[-1][:-1])
-            if
             print(k)
             print(seen)
+            # total *= int(k.split()[-1][:-1])
+            if seen[0] and seen[3]:
+                corners[1] = k
+            elif seen[1] and seen[2]:
+                corners[2] = k
+            elif seen[1] and seen[3]:
+                corners[3] = k
+            else:
+                corners[0] = k
+            print(corners)
 
 
 
