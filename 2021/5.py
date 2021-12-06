@@ -7,7 +7,7 @@ def solve(input: list) -> int:
 
     for points in input:
         x1, y1 = (int(x) for x in points[0].split(","))
-        x2, y2 = (int(x)for x in points[1].split(","))
+        x2, y2 = (int(x) for x in points[1].split(","))
         m = search(m, x1, x2, y1, y2)
 
     total = 0
