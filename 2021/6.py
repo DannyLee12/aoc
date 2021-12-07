@@ -41,9 +41,9 @@ def solve_b(input: list, days: int) -> int:
     return total
 
 
-
-
 if __name__ == '__main__':
     input = [int(x) for x in open("6.txt").read().split(",")]
+    input = list(map(int, open("6.txt").read().split(",")))
+    print(input)
     print(solve_a(input, 80))
     print(solve_b(input, 256))
