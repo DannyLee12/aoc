@@ -1,6 +1,7 @@
 DIRS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 import numpy as np
 
+
 def solve_a(input: list) -> int:
     """Find the cheapest way through the map"""
     n = len(input)
@@ -8,7 +9,7 @@ def solve_a(input: list) -> int:
     cost = [[float("inf")] * n for _ in range(n)]
     cost[0][0] = 0
     q = [(0, 0)]
-    for _ in range(10):
+    for _ in range(3):
         for i in range(n):
             for j in range(n):
                 if i == j == 0:
