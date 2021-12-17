@@ -12,11 +12,11 @@ def expression(id: int, l: list) -> int:
     elif id == 3:
         return max(l)
     elif id == 5:
-        return 1 if l[0] > l[1] else 0
+        return l[0] > l[1]
     elif id == 6:
-        return 1 if l[0] < l[1] else 0
+        return l[0] < l[1]
     elif id == 7:
-        return 1 if l[0] == l[1] else 0
+        return l[0] == l[1]
 
 
 def solve_a(input: str, pos: int = 0, versions: list = []) -> tuple:
