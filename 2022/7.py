@@ -1,7 +1,9 @@
 from collections import defaultdict
 from functools import lru_cache
 
+
 def solve_a(rows):
+    totals = {}
     d = defaultdict(list)
     q = []
     for row in rows:
@@ -12,21 +14,19 @@ def solve_a(rows):
         elif row[0] == '$':  # Ignore ls
             pass
         elif row[0].isnumeric():
-            d[q[-1]].append(row)
+            d["/".join(q)].append("/".join(q) + '/' + row)
         elif row[0] == 'd':
-            d[q[-1]].append(row.split()[-1])
+            d["/".join(q)].append("/".join(q) + '/' + row.split()[-1])
 
     @lru_cache(maxsize=-1)
     def sum(path):
         total = 0
-        vals = sorted(d[path])
-        for item in vals:
+        for value in d[path]:
+            item = value.split('/')[-1].split()[0]
             if item[0].isnumeric():
-                total += int(item.split()[0])
+                total += int(item)
             else:
-                total += sum(item)
-            if total > 100000:
-                return 100001
+                total += sum(value)
         return total
 
     new_total = 0
@@ -34,10 +34,21 @@ def solve_a(rows):
     for key in d.keys():
         total = sum(key)
         # print(key, total)
-        if total <= 100000:
-            new_total += total
+        # if total <= 100000:
+        totals[key] = total
+        new_total += total
 
-    return new_total
+    print(totals)
+    total_space = totals['/']
+    availible_space = 70000000 - total_space
+    required_space = 30000000 - availible_space
+
+    smallest = float("inf")
+    for v in totals.values():
+        if int(v) >= required_space:
+            smallest = min(smallest, int(v))
+
+    return smallest
 
 
 if __name__ == '__main__':
