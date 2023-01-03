@@ -38,7 +38,6 @@ def solve_a(grid):
 
 if __name__ == '__main__':
     grid = [list(x) for x in open('12.txt').read().split('\n')]
-    # print(grid)x
     print(solve_a(grid))
 
 
