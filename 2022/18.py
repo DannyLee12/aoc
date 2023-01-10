@@ -51,4 +51,3 @@ if __name__ == '__main__':
     max_y = max([x[1] for x in blocks])
     max_z = max([x[2] for x in blocks])
     print(solve_b(blocks, max_x, max_y, max_z))
-
