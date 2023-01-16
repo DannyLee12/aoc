@@ -16,16 +16,47 @@ def solve_a(graph):
 
 def solve_b(graph):
     graph["humn"] = "humn"
+    graph['root'] = graph['root'].replace("+", '==')
 
     def reduce(node):
-        for op in ["+", "-", "/", "*", "=="]:
-            if op in graph[node]:
-                split = graph[node].split(op)
-                # print(split)
-                graph[node] = reduce(str(graph[split[0].strip()])) + op + str(reduce(graph[split[1].strip()]))
-        return node
 
-    return reduce("root")
+        value = graph[node]
+
+        # Int
+        if isinstance(value, int):
+            return value
+        if value == 'humn':
+            return 'humn'
+        # split into two
+        for op in ["+", "-", "/", "*", '==']:
+            if op in value:
+                t1, t2 = value.split(op)
+                t1, t2 = reduce(t1.strip()), reduce(t2.strip())
+                calc = str(t1) + op + str(t2)
+                try:
+                    graph[node] = eval(calc)
+                except:
+                    graph[node] = "(" + calc + ")"
+                return graph[node]
+    calc = reduce("root")
+
+    low, high = 1, 100_000_000_000_000_000_000_000_000_000_000_000
+
+    target = float(calc.split("==")[1][:-1])
+    equation = calc.split("==")[0][1:]
+    while low < high:
+
+        value = (high + low) // 2
+
+        result = eval(equation.replace("humn", str(value)))
+        if result == target:
+            return value
+        if result < target:
+            high = value
+        else:
+            low = value + 1
+
+    return low, high
 
 
 if __name__ == '__main__':
@@ -41,4 +72,3 @@ if __name__ == '__main__':
     # print(graph)
     # print(solve_a(graph))
     print(solve_b(graph))
-    print(graph['root'])
