@@ -68,7 +68,5 @@ if __name__ == '__main__':
             graph[x] = int(y)
         except:
             graph[x] = y.strip()
-    # graph = [[x + y for x, y in monkey.split(":")] for monkey in monkeys]
-    # print(graph)
-    # print(solve_a(graph))
+    print(solve_a(graph))
     print(solve_b(graph))
