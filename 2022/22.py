@@ -4,8 +4,11 @@ import math
 def turn(x, y, dir):
     if dir == 'R':
         return [y, -x]
-    else:
+    elif dir == 'L':
         return [-y, x]
+    else:
+        return [x, y]
+
 
 def dir_val(dir):
     if dir == [0, 1]:
@@ -16,6 +19,7 @@ def dir_val(dir):
         return 1
     elif dir == [-1, 0]:
         return 3
+
 
 def solve_a(grid, dirs):
     grid = [list(x) for x in grid.split('\n')]
@@ -39,15 +43,19 @@ def solve_a(grid, dirs):
         row_bounds.append(bounds)
 
     val = ""
+    i = 0
     for char in dirs:
         if char.isdigit():
             val += char
         else:
+            i += 1
             val = int(val)
             # move
             while val:
                 pot_pos = [pos[0] + dir[0], pos[1] + dir[1]]
                 try:
+                    if pot_pos[0] < 0 or pot_pos[1] < 0:
+                        raise IndexError
                     if grid[pot_pos[0]][pot_pos[1]] == '#':
                         val = ""
                         break
@@ -55,7 +63,7 @@ def solve_a(grid, dirs):
                     pass
 
                 try:
-                    if grid[pot_pos[0]][pot_pos[1]] == ' ':
+                    if grid[pot_pos[0]][pot_pos[1]] == ' ' or pot_pos[0] < 0 or pot_pos[1] < 0:
                         raise IndexError
                 except IndexError:
                     if dir == [0, 1]:  # Right
@@ -81,6 +89,7 @@ def solve_a(grid, dirs):
 
             dir = turn(*dir, char)
 
+    print(i)
     return 1000 * (pos[0] + 1) + 4 * (pos[1] + 1) + dir_val(dir)
 
 
