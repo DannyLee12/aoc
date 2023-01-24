@@ -24,7 +24,7 @@ def dir_val(dir):
 def solve_a(grid, dirs):
     grid = [list(x) for x in grid.split('\n')]
     pos = [0, grid[0].index('.')]
-    dir = [0, 1]
+    direction = [0, 1]
     row_bounds = []
     col_bounds = [[math.inf, -math.inf]]
     for i, row in enumerate(grid):
@@ -52,7 +52,7 @@ def solve_a(grid, dirs):
             val = int(val)
             # move
             while val:
-                pot_pos = [pos[0] + dir[0], pos[1] + dir[1]]
+                pot_pos = [pos[0] + direction[0], pos[1] + direction[1]]
                 try:
                     if pot_pos[0] < 0 or pot_pos[1] < 0:
                         raise IndexError
@@ -66,13 +66,13 @@ def solve_a(grid, dirs):
                     if grid[pot_pos[0]][pot_pos[1]] == ' ' or pot_pos[0] < 0 or pot_pos[1] < 0:
                         raise IndexError
                 except IndexError:
-                    if dir == [0, 1]:  # Right
+                    if direction == [0, 1]:  # Right
                         pot_pos[1] = row_bounds[pos[0]][0]
-                    elif dir == [0, -1]:  # Left
+                    elif direction == [0, -1]:  # Left
                         pot_pos[1] = row_bounds[pos[0]][1]
-                    elif dir == [1, 0]:
+                    elif direction == [1, 0]:
                         pot_pos[0] = col_bounds[pos[1]][0]
-                    elif dir == [-1, 0]:
+                    elif direction == [-1, 0]:
                         pot_pos[0] = col_bounds[pos[1]][1]
 
                     if grid[pot_pos[0]][pot_pos[1]] == '#':
@@ -87,10 +87,10 @@ def solve_a(grid, dirs):
 
             val = ""
 
-            dir = turn(*dir, char)
+            direction = turn(*direction, char)
 
     print(i)
-    return 1000 * (pos[0] + 1) + 4 * (pos[1] + 1) + dir_val(dir)
+    return 1000 * (pos[0] + 1) + 4 * (pos[1] + 1) + dir_val(direction)
 
 
 if __name__ == '__main__':
